@@ -1,0 +1,55 @@
+# Xcode
+.DS_Store
+*.xcworkspace
+*.xcuserstate
+*.xcscmblueprint
+*.xcodeproj/project.xcworkspace
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcshareddata/
+
+# Build artifacts
+DerivedData/
+Build/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.moved-aside
+
+# Swift Package Manager
+/.swiftpm
+/.build
+Package.resolved
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/
+Carthage/Checkouts
+Carthage/Build
+
+# SwiftLint & SwiftFormat
+.swiftlint.yml
+.swiftformat
+
+# CoreData
+*.xcdatamodeld/.xccurrentversion
+
+# Logs & Temporary Files
+*.log
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Secrets & Environment Variables
+*.xcconfig
+*.env
+Secrets.swift
+config.json
+
+# Generated Files
+*.generated.swift
