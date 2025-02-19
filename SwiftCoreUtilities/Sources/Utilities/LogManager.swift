@@ -1,5 +1,4 @@
 import os
-import Capacitor
 import Foundation
 
 enum LogLevel: String {
@@ -13,18 +12,13 @@ final class LogManager {
     // MARK: - Properties
     
     static let shared = LogManager()
-    private let logger = Logger(subsystem: "com.lapile.plugin", category: "LaPilePlugin")
-    weak var plugin: CAPPlugin?
+    private let logger = Logger(subsystem: "com.swiftCoreUtilities.logger", category: "SwiftCoreUtilities")
     
     // MARK: - Initialization
     
     private init() {}
     
     // MARK: - Public Methods
-    
-    func attachPlugin(_ plugin: CAPPlugin) {
-        self.plugin = plugin
-    }
     
     static func debug(_ message: String, file: String = #file, function: String = #function, line: Int = #line) {
         shared.log(message, level: .debug, file: file, function: function, line: line)
@@ -67,10 +61,7 @@ final class LogManager {
             logger.warning("\(formattedMessage, privacy: .public)")
         case .error:
             logger.error("\(formattedMessage, privacy: .public)")
-        }
-        
-        // Notify frontend (Ionic) if a plugin is attached
-        plugin?.notifyListeners("logEvent", data: ["level": level.rawValue, "message": message])
+        }        
     }
     
     private func emoji(for level: LogLevel) -> String {

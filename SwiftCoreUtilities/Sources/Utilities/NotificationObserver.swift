@@ -5,8 +5,7 @@ protocol Observer: AnyObject {
 }
 
 enum NotificationEvent {
-    case permissionsChanged(permissionType: String, state: String)
-    case syncStateChanged(state: String)
+    case aNotificationEvent(myEventValue: String)
 }
 
 protocol NotificationObserver {

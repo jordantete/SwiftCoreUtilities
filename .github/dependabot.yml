@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: "swift"
+    directory: "/SwiftCoreUtilities"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      minor-patches:
+        patterns:
+          - "*" # Groups all minor and patch updates together
+        update-types:
+          - "minor"
+          - "patch"
+    rebase-strategy: "auto"
+    commit-message:
+      prefix: "SPM"
+      include: "scope"

@@ -7,11 +7,15 @@ protocol UserLocationManager {
     func stopTracking()
     func getCurrentHeading() -> CLHeading?
     func adjustTrackingForLowPowerMode(isEnabled: Bool)
+    var distanceFilter: CLLocationDistance { get set }
+    var desiredAccuracy: CLLocationAccuracy { get set }
+    var activityType: CLActivityType { get set }
 }
 
 protocol UserLocationManagerDelegate: AnyObject {
     func didUpdateLocation(_ location: CLLocation)
     func didFailWithError(_ error: Error)
+    func didUpdateHeading(_ heading: CLHeading)
 }
 
 final class UserLocationManagerImpl: NSObject, UserLocationManager {
@@ -21,17 +25,37 @@ final class UserLocationManagerImpl: NSObject, UserLocationManager {
     weak var delegate: UserLocationManagerDelegate?
     private var lastHeading: CLHeading?
     
+    var distanceFilter: CLLocationDistance {
+        didSet { locationManager.distanceFilter = distanceFilter }
+    }
+    
+    var desiredAccuracy: CLLocationAccuracy {
+        didSet { locationManager.desiredAccuracy = desiredAccuracy }
+    }
+    
+    var activityType: CLActivityType {
+        didSet { locationManager.activityType = activityType }
+    }
+    
     // MARK: - Initialization
     
-    override init() {
+    init(
+        distanceFilter: CLLocationDistance = 50,
+        desiredAccuracy: CLLocationAccuracy = kCLLocationAccuracyBest,
+        activityType: CLActivityType = .other
+    ) {
         self.locationManager = CLLocationManager()
+        self.distanceFilter = distanceFilter
+        self.desiredAccuracy = desiredAccuracy
+        self.activityType = activityType
+
         super.init()
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.distanceFilter = 50 // Adjust as needed
-        
-        // self.locationManager.activityType = .automotiveNavigation
+        locationManager.distanceFilter = distanceFilter
+        locationManager.desiredAccuracy = desiredAccuracy
+        locationManager.activityType = activityType
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.pausesLocationUpdatesAutomatically = false
         
@@ -106,7 +130,7 @@ extension UserLocationManagerImpl: CLLocationManagerDelegate {
     }
     
     func locationManagerShouldDisplayHeadingCalibration(_ manager: CLLocationManager) -> Bool {
-        return true
+        true
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
