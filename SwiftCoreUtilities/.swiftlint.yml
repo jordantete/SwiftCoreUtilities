@@ -1,0 +1,44 @@
+included:
+    - "Sources/SwiftCoreUtilities"
+
+disabled_rules:
+    - todo
+    - trailing_whitespace
+
+opt_in_rules:
+    - unused_closure_parameter
+    - vertical_whitespace
+    - explicit_init
+    - trailing_newline
+    - redundant_optional_initialization
+    - closure_spacing
+    - prefer_self_type_over_type_of_self
+    - prefer_zero_over_explicit_init
+    - array_init
+    - redundant_nil_coalescing
+    - shorthand_operator
+    - sorted_first_last
+    - toggle_bool
+    - discouraged_optional_boolean
+    - discouraged_object_literal
+    - discouraged_none_name
+    - computed_accessors_order
+
+line_length: 150
+function_body_length:
+    warning: 50
+    error: 100
+  
+identifier_name:
+    min_length: 2
+    max_length: 40
+
+nesting:
+    type_level: 3
+    function_level: 2
+
+analyzer_rules:
+    - unused_import
+
+excluded:
+    - "Generated/"
