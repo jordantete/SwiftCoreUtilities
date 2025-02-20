@@ -19,33 +19,11 @@ jobs:
         
       - name: Select Xcode Version
         run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-
-      - name: Set Working Directory to SwiftCoreUtilities
-        run: cd SwiftCoreUtilities
         
       - name: Install Dependencies
         working-directory: SwiftCoreUtilities
         run: swift package resolve
         
-      - name: List Available Simulators (Debugging)
-        run: xcrun simctl list devices available
-        
-      - name: Boot an Available iPhone Simulator with iOS 17.2
-        run: |
-            DEVICE_ID=$(xcrun simctl list devices available | awk '/-- iOS 17.2 --/,/--/{if ($0 ~ /iPhone/ && $0 ~ /Shutdown/) print $NF}' | tr -d '()' | head -n 1)
-
-            if [ -z "$DEVICE_ID" ]; then
-              echo "❌ No available iPhone simulator running iOS 17.2 found!"
-              exit 1
-            fi
-
-            xcrun simctl boot "$DEVICE_ID"
-            echo "✅ Booted iPhone Simulator: $DEVICE_ID"
-
-      - name: Run Unit Tests
+      - name: Run Unit Tests with Swift Package Manager
         working-directory: SwiftCoreUtilities
-        run: |
-          xcodebuild test \
-            -scheme SwiftCoreUtilities \
-            -destination "platform=iOS Simulator,id=$DEVICE_ID" \
-            -enableCodeCoverage YES | xcpretty
+        run: swift test --enable-code-coverage
