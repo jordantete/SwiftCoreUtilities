@@ -20,6 +20,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        
+      - name: Install Dependencies
+        working-directory: SwiftCoreUtilities
+        run: swift package resolve
       
       - uses: mxcl/xcodebuild@v3
         with:
