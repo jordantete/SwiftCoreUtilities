@@ -49,3 +49,4 @@ config.json
 
 # Generated Files
 *.generated.swift
+SwiftCoreUtilities/.swiftpm/xcode/xcuserdata

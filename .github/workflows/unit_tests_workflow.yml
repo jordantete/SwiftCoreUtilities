@@ -24,6 +24,9 @@ jobs:
         working-directory: SwiftCoreUtilities
         run: swift package resolve
         
-      - name: Run Unit Tests with Swift Package Manager
-        working-directory: SwiftCoreUtilities
-        run: swift test --destination "platform=iOS Simulator,name=iPhone 15" --enable-code-coverage
+      - name: Run Tests on iPhone 14 Simulator (iOS 16.0)
+        run: |
+            xcodebuild test \
+                -scheme 'SwiftCoreUtilities' \
+                -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.0'
+                -enableCodeCoverage YES | xcpretty
