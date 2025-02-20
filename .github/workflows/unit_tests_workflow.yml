@@ -30,15 +30,16 @@ jobs:
       - name: List Available Simulators (Debugging)
         run: xcrun simctl list devices available
         
-      - name: Boot iOS Simulator
+      - name: Boot an Existing iPhone 15 Simulator (iOS 17.2)
         run: |
-          UDID=$(xcrun simctl create "Custom iPhone" "iPhone 15" "iOS 17.0")
-          xcrun simctl boot "$UDID"
-          echo "Simulator Booted: $UDID"
-          
-      - name: Run Unit Tests on iPhone 15 (iOS 17.0)
+          DEVICE_ID=$(xcrun simctl list devices available | grep "iPhone 15 (295CA147-D5E2-46D6-B6DD-E2D4397CC460)" | awk '{print $NF}' | tr -d '()')
+          xcrun simctl boot "$DEVICE_ID"
+          echo "Booted iPhone Simulator: $DEVICE_ID"
+
+      - name: Run Unit Tests on iPhone 15 (iOS 17.2)
+        working-directory: SwiftCoreUtilities
         run: |
           xcodebuild test \
             -scheme SwiftCoreUtilities \
-            -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.0' \
+            -destination "platform=iOS Simulator,id=$DEVICE_ID" \
             -enableCodeCoverage YES | xcpretty
