@@ -3,10 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "SwiftCoreUtilities",
-    platforms: [
-        .macOS(.v12),
-        .iOS(.v16)
-    ],
+    platforms: [.iOS(.v16)],
     products: [
         .library(
             name: "SwiftCoreUtilities",
