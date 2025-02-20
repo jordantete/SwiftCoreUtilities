@@ -1,11 +1,11 @@
 import CoreBluetooth
 
-protocol BluetoothPermissionManager {
+public protocol BluetoothPermissionManager {
     func requestBluetoothPermission(completion: @escaping (PermissionState) -> Void)
     func currentBluetoothPermissionState() -> PermissionState
 }
 
-final class BluetoothPermissionManagerImpl: NSObject, BluetoothPermissionManager {
+public final class BluetoothPermissionManagerImpl: NSObject, BluetoothPermissionManager {
     // MARK: - Private Properties
     
     private let centralManager: CBCentralManager
@@ -21,13 +21,13 @@ final class BluetoothPermissionManagerImpl: NSObject, BluetoothPermissionManager
 
     // MARK: - BluetoothPermissionManager
     
-    func requestBluetoothPermission(completion: @escaping (PermissionState) -> Void) {
+    public func requestBluetoothPermission(completion: @escaping (PermissionState) -> Void) {
         permissionCompletion = completion
         let currentState = currentBluetoothPermissionState()
         completion(currentState)
     }
     
-    func currentBluetoothPermissionState() -> PermissionState {
+    public func currentBluetoothPermissionState() -> PermissionState {
         return mapBluetoothAuthorizationStatus(CBCentralManager.authorization)
     }
     
@@ -46,7 +46,7 @@ final class BluetoothPermissionManagerImpl: NSObject, BluetoothPermissionManager
 
 // MARK: - CBCentralManagerDelegate
 extension BluetoothPermissionManagerImpl: CBCentralManagerDelegate {
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+    public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         let permissionState = mapBluetoothAuthorizationStatus(CBCentralManager.authorization)
         permissionCompletion?(permissionState)
         permissionCompletion = nil

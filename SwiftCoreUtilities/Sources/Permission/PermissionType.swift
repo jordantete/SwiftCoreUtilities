@@ -1,6 +1,6 @@
 import Foundation
 
-enum PermissionType: String {
+public enum PermissionType: String {
     case location
     case backgroundLocation
     case notification

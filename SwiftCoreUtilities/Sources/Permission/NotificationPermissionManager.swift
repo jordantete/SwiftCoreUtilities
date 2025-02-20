@@ -1,13 +1,13 @@
 import UserNotifications
 import UIKit
 
-protocol NotificationPermissionManager {
+public protocol NotificationPermissionManager {
     func requestNotificationPermission(completion: @escaping (PermissionState) -> Void)
     func currentNotificationPermission() -> PermissionState
     func observeNotificationPermissionChanges()
 }
 
-final class NotificationPermissionManagerImpl: NotificationPermissionManager {
+public final class NotificationPermissionManagerImpl: NotificationPermissionManager {
     // MARK: - Private properties
     
     private let userNotificationCenter: UNUserNotificationCenter
@@ -22,7 +22,7 @@ final class NotificationPermissionManagerImpl: NotificationPermissionManager {
     
     // MARK: - NotificationPermissionManager
     
-    func requestNotificationPermission(completion: @escaping (PermissionState) -> Void) {
+    public func requestNotificationPermission(completion: @escaping (PermissionState) -> Void) {
         userNotificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in
             self.userNotificationCenter.getNotificationSettings { settings in
                 let mappedState = self.mapUNAuthorizationStatus(settings.authorizationStatus)
@@ -31,11 +31,11 @@ final class NotificationPermissionManagerImpl: NotificationPermissionManager {
         }
     }
     
-    func currentNotificationPermission() -> PermissionState {
+    public func currentNotificationPermission() -> PermissionState {
         getCurrentPermissionState()
     }
     
-    func observeNotificationPermissionChanges() {
+    public func observeNotificationPermissionChanges() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(checkNotificationPermissionStatus),

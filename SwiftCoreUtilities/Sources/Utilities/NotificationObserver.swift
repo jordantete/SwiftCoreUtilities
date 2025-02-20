@@ -1,20 +1,20 @@
 import Foundation
 
-protocol Observer: AnyObject {
+public protocol Observer: AnyObject {
     func update(event: NotificationEvent)
 }
 
-enum NotificationEvent {
+public enum NotificationEvent {
     case aNotificationEvent(myEventValue: String)
 }
 
-protocol NotificationObserver {
+public protocol NotificationObserver {
     func addObserver(_ observer: Observer)
     func removeObserver(_ observer: Observer)
     func post(event: NotificationEvent)
 }
 
-final class NotificationObserverImpl: NotificationObserver {
+public final class NotificationObserverImpl: NotificationObserver {
     // MARK: - Private methods
     
     private var observers = NSHashTable<AnyObject>.weakObjects()
@@ -22,7 +22,7 @@ final class NotificationObserverImpl: NotificationObserver {
     
     // MARK: - NotificationObserver
     
-    func addObserver(_ observer: Observer) {
+    public func addObserver(_ observer: Observer) {
         queue.async(flags: .barrier) { [weak self] in
             guard let self = self else { return }
             if !self.observers.contains(observer) {
@@ -31,13 +31,13 @@ final class NotificationObserverImpl: NotificationObserver {
         }
     }
     
-    func removeObserver(_ observer: Observer) {
+    public func removeObserver(_ observer: Observer) {
         queue.async(flags: .barrier) { [weak self] in
             self?.observers.remove(observer)
         }
     }
     
-    func post(event: NotificationEvent) {
+    public func post(event: NotificationEvent) {
         queue.sync { [weak self] in
             guard let self = self else { return }
             let validObservers = self.observers.allObjects.compactMap { $0 as? Observer }

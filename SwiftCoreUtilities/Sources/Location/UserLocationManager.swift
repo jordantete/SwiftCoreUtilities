@@ -1,7 +1,7 @@
 import Foundation
 import CoreLocation
 
-protocol UserLocationManager {
+public protocol UserLocationManager {
     var delegate: UserLocationManagerDelegate? { get set }
     func startTracking()
     func stopTracking()
@@ -12,28 +12,28 @@ protocol UserLocationManager {
     var activityType: CLActivityType { get set }
 }
 
-protocol UserLocationManagerDelegate: AnyObject {
+public protocol UserLocationManagerDelegate: AnyObject {
     func didUpdateLocation(_ location: CLLocation)
     func didFailWithError(_ error: Error)
     func didUpdateHeading(_ heading: CLHeading)
 }
 
-final class UserLocationManagerImpl: NSObject, UserLocationManager {
+public final class UserLocationManagerImpl: NSObject, UserLocationManager {
     // MARK: - Properties
     
     private let locationManager: CLLocationManager
-    weak var delegate: UserLocationManagerDelegate?
+    public weak var delegate: UserLocationManagerDelegate?
     private var lastHeading: CLHeading?
     
-    var distanceFilter: CLLocationDistance {
+    public var distanceFilter: CLLocationDistance {
         didSet { locationManager.distanceFilter = distanceFilter }
     }
     
-    var desiredAccuracy: CLLocationAccuracy {
+    public var desiredAccuracy: CLLocationAccuracy {
         didSet { locationManager.desiredAccuracy = desiredAccuracy }
     }
     
-    var activityType: CLActivityType {
+    public var activityType: CLActivityType {
         didSet { locationManager.activityType = activityType }
     }
     
@@ -65,7 +65,7 @@ final class UserLocationManagerImpl: NSObject, UserLocationManager {
     
     // MARK: - Location Tracking
     
-    func startTracking() {
+    public func startTracking() {
         LogManager.info("Started tracking user location")
         locationManager.startUpdatingLocation()
         locationManager.startMonitoringSignificantLocationChanges()
@@ -78,7 +78,7 @@ final class UserLocationManagerImpl: NSObject, UserLocationManager {
         }
     }
     
-    func stopTracking() {
+    public func stopTracking() {
         LogManager.info("Stopped tracking user location")
         locationManager.stopUpdatingLocation()
         locationManager.stopMonitoringSignificantLocationChanges()
@@ -89,11 +89,11 @@ final class UserLocationManagerImpl: NSObject, UserLocationManager {
         }
     }
     
-    func getCurrentHeading() -> CLHeading? {
+    public func getCurrentHeading() -> CLHeading? {
         lastHeading
     }
     
-    func adjustTrackingForLowPowerMode(isEnabled: Bool) {
+    public func adjustTrackingForLowPowerMode(isEnabled: Bool) {
         if isEnabled {
             LogManager.warning("Low Power Mode enabled – Reducing GPS accuracy.")
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -108,7 +108,7 @@ final class UserLocationManagerImpl: NSObject, UserLocationManager {
 
 // MARK: - CLLocationManagerDelegate
 extension UserLocationManagerImpl: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last else { return }
         
         DispatchQueue.main.async { [weak self] in
@@ -117,7 +117,7 @@ extension UserLocationManagerImpl: CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         guard newHeading.headingAccuracy > 0 else {
             LogManager.warning("Heading accuracy too low, ignoring update.")
             return
@@ -129,11 +129,11 @@ extension UserLocationManagerImpl: CLLocationManagerDelegate {
         }
     }
     
-    func locationManagerShouldDisplayHeadingCalibration(_ manager: CLLocationManager) -> Bool {
+    public func locationManagerShouldDisplayHeadingCalibration(_ manager: CLLocationManager) -> Bool {
         true
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         LogManager.error("Location tracking error: \(error.localizedDescription)")
         DispatchQueue.main.async { [weak self] in
             LogManager.error("Location tracking error: \(error.localizedDescription)")

@@ -1,12 +1,12 @@
 import Foundation
 
-protocol PermissionService: AnyObject {
+public protocol PermissionService: AnyObject {
     func requestPermission(for type: PermissionType, completion: @escaping (PermissionState) -> Void)
     func permissionState(for type: PermissionType) -> PermissionState
     func startObservingPermissionChanges(for types: [PermissionType])
 }
 
-final class PermissionServiceImpl: PermissionService {
+public final class PermissionServiceImpl: PermissionService {
     // MARK: - Private properties
     
     private let locationPermissionManager: LocationPermissionManager
@@ -35,7 +35,7 @@ final class PermissionServiceImpl: PermissionService {
     
     // MARK: - PermissionService
     
-    func requestPermission(for type: PermissionType, completion: @escaping (PermissionState) -> Void) {
+    public func requestPermission(for type: PermissionType, completion: @escaping (PermissionState) -> Void) {
         switch type {
         case .location:
             locationPermissionManager.requestLocationPermission(completion: completion)
@@ -52,7 +52,7 @@ final class PermissionServiceImpl: PermissionService {
         }
     }
     
-    func permissionState(for type: PermissionType) -> PermissionState {
+    public func permissionState(for type: PermissionType) -> PermissionState {
         switch type {
         case .location, .backgroundLocation:
             return locationPermissionManager.currentLocationPermissionState(for: type)
@@ -67,7 +67,7 @@ final class PermissionServiceImpl: PermissionService {
         }
     }
     
-    func startObservingPermissionChanges(for types: [PermissionType]) {
+    public func startObservingPermissionChanges(for types: [PermissionType]) {
         for type in types {
             observers[type]?()
         }

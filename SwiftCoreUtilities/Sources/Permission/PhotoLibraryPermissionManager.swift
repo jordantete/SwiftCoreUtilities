@@ -1,20 +1,20 @@
 import Photos
 
-protocol PhotoLibraryPermissionManager {
+public protocol PhotoLibraryPermissionManager {
     func requestPhotoLibraryPermission(completion: @escaping (PermissionState) -> Void)
     func currentPhotoLibraryPermissionState() -> PermissionState
 }
 
-final class PhotoLibraryPermissionManagerImpl: PhotoLibraryPermissionManager {
+public final class PhotoLibraryPermissionManagerImpl: PhotoLibraryPermissionManager {
     // MARK: - PhotoLibraryPermissionManager
     
-    func requestPhotoLibraryPermission(completion: @escaping (PermissionState) -> Void) {
+    public func requestPhotoLibraryPermission(completion: @escaping (PermissionState) -> Void) {
         PHPhotoLibrary.requestAuthorization { status in
             completion(self.mapPhotoLibraryPermission(status: status))
         }
     }
     
-    func currentPhotoLibraryPermissionState() -> PermissionState {
+    public func currentPhotoLibraryPermissionState() -> PermissionState {
         mapPhotoLibraryPermission(status: PHPhotoLibrary.authorizationStatus())
     }
     

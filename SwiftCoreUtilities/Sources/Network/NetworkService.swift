@@ -1,11 +1,11 @@
 import Foundation
 
-protocol NetworkService {
+public protocol NetworkService {
     func request<T: Decodable>(_ request: APIRequest, expecting: T.Type) async throws -> T
     func request(_ request: APIRequest) async throws
 }
 
-final class NetworkServiceImpl: NetworkService {
+public final class NetworkServiceImpl: NetworkService {
     // MARK: - Private properties
     
     private let session: URLSessionProtocol
@@ -26,7 +26,7 @@ final class NetworkServiceImpl: NetworkService {
     
     // MARK: - Generic Request (Decodable Response)
     
-    func request<T: Decodable>(_ request: APIRequest, expecting: T.Type) async throws -> T {
+    public func request<T: Decodable>(_ request: APIRequest, expecting: T.Type) async throws -> T {
         let urlRequest = try requestBuilder.buildUrlRequest(for: request)
 
         do {
@@ -42,7 +42,7 @@ final class NetworkServiceImpl: NetworkService {
     
     // MARK: - Request Without Response (POST)
     
-    func request(_ request: APIRequest) async throws {
+    public func request(_ request: APIRequest) async throws {
         let urlRequest = try requestBuilder.buildUrlRequest(for: request)
         
         do {

@@ -11,7 +11,8 @@ struct FeatureListView: View {
     private let features: [Feature] = [
         Feature(name: "Keyboard Dismiss Helper", destination: AnyView(KeyboardDismissDemoView())),
         Feature(name: "Shake Animation", destination: AnyView(ShakeEffectDemoView())),
-        Feature(name: "Pulsating Effect", destination: AnyView(PulsatingEffectDemoView()))
+        Feature(name: "Pulsating Effect", destination: AnyView(PulsatingEffectDemoView())),
+        Feature(name: "Permission Management", destination: AnyView(PermissionDemoView()))
     ]
 
     var body: some View {

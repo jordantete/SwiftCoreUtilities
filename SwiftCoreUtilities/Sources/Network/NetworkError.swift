@@ -1,6 +1,6 @@
 import Foundation
 
-enum NetworkError: Error, Equatable {
+public enum NetworkError: Error, Equatable {
     case invalidURL
     case serverError(Int)
     case noResponse
@@ -64,7 +64,7 @@ enum NetworkError: Error, Equatable {
         return .unknown(error)
     }
     
-    static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
+    public static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
         switch (lhs, rhs) {
         case (.invalidURL, .invalidURL),
             (.noResponse, .noResponse),

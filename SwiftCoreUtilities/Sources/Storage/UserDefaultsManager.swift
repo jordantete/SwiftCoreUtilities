@@ -1,11 +1,11 @@
 import Foundation
 
-protocol UserDefaultsManager {
+public protocol UserDefaultsManager {
     func isFeatureEnabled() -> Bool
     func setFeatureEnabled(_ enabled: Bool)
 }
 
-final class UserDefaultsManagerImpl: UserDefaultsManager {
+public final class UserDefaultsManagerImpl: UserDefaultsManager {
     // MARK: - Private properties
     
     private let defaults: UserDefaults
@@ -22,11 +22,11 @@ final class UserDefaultsManagerImpl: UserDefaultsManager {
     
     // MARK: - UserDefaultsManager
     
-    func isFeatureEnabled() -> Bool {
+    public func isFeatureEnabled() -> Bool {
         defaults.bool(forKey: Keys.isFeatureEnabled)
     }
     
-    func setFeatureEnabled(_ enabled: Bool) {
+    public func setFeatureEnabled(_ enabled: Bool) {
         defaults.set(enabled, forKey: Keys.isFeatureEnabled)
     }
 }

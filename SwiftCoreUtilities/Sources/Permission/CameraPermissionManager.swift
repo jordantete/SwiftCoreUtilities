@@ -1,18 +1,18 @@
 import AVFoundation
 
-protocol CameraPermissionManager {
+public protocol CameraPermissionManager {
     func requestCameraPermission(completion: @escaping (PermissionState) -> Void)
     func currentCameraPermissionState() -> PermissionState
 }
 
-final class CameraPermissionManagerImpl: CameraPermissionManager {
-    func requestCameraPermission(completion: @escaping (PermissionState) -> Void) {
+public final class CameraPermissionManagerImpl: CameraPermissionManager {
+    public func requestCameraPermission(completion: @escaping (PermissionState) -> Void) {
         AVCaptureDevice.requestAccess(for: .video) { granted in
             completion(granted ? .granted : .denied)
         }
     }
     
-    func currentCameraPermissionState() -> PermissionState {
+    public func currentCameraPermissionState() -> PermissionState {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:    return .notDetermined
         case .restricted:       return .restricted

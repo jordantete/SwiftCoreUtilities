@@ -1,6 +1,6 @@
 import CoreData
 
-protocol CoreDataManager {
+public protocol CoreDataManager {
     var context: NSManagedObjectContext { get }
     func save<T: NSManagedObject>(_ entity: T.Type, configure: (T) -> Void) throws
     func fetchData<T: NSManagedObject>(entity: T.Type, predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?) throws -> [T]
@@ -8,7 +8,7 @@ protocol CoreDataManager {
     func deleteAll<T: NSManagedObject>(entity: T.Type)
 }
 
-final class CoreDataManagerImpl: CoreDataManager {
+public final class CoreDataManagerImpl: CoreDataManager {
     // MARK: - Public properties
     
     private let persistentContainer: NSPersistentContainer
@@ -33,13 +33,13 @@ final class CoreDataManagerImpl: CoreDataManager {
     
     // MARK: - CoreDataManager
     
-    var context: NSManagedObjectContext {
+    public var context: NSManagedObjectContext {
         let context = persistentContainer.viewContext
         context.automaticallyMergesChangesFromParent = true
         return context
     }
     
-    func save<T: NSManagedObject>(_ entity: T.Type, configure: (T) -> Void) throws {
+    public func save<T: NSManagedObject>(_ entity: T.Type, configure: (T) -> Void) throws {
         let context = self.context
 
         try context.performAndWait {
@@ -56,7 +56,7 @@ final class CoreDataManagerImpl: CoreDataManager {
         }
     }
     
-    func fetchData<T: NSManagedObject>(
+    public func fetchData<T: NSManagedObject>(
         entity: T.Type,
         predicate: NSPredicate? = nil,
         sortDescriptors: [NSSortDescriptor]? = nil
@@ -82,7 +82,7 @@ final class CoreDataManagerImpl: CoreDataManager {
         }
     }
     
-    func delete<T: NSManagedObject>(_ object: T) {
+    public func delete<T: NSManagedObject>(_ object: T) {
         let context = self.context
         
         context.performAndWait {
@@ -105,7 +105,7 @@ final class CoreDataManagerImpl: CoreDataManager {
         }
     }
     
-    func deleteAll<T: NSManagedObject>(entity: T.Type) {
+    public func deleteAll<T: NSManagedObject>(entity: T.Type) {
         let context = self.context
         
         context.performAndWait {

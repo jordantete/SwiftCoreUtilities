@@ -1,13 +1,13 @@
 import Network
 
-protocol NetworkMonitorService {
+public protocol NetworkMonitorService {
     var isNetworkAvailable: Bool { get }
     func startMonitoring()
     func stopMonitoring()
     var onNetworkAvailable: (() -> Void)? { get set }
 }
 
-final class NetworkMonitorServiceImpl: NetworkMonitorService {
+public final class NetworkMonitorServiceImpl: NetworkMonitorService {
     // MARK: - Private properties
     
     private let monitor: NWPathMonitor
@@ -15,8 +15,8 @@ final class NetworkMonitorServiceImpl: NetworkMonitorService {
     
     // MARK: - Public properties
     
-    var isNetworkAvailable: Bool = false
-    var onNetworkAvailable: (() -> Void)?
+    public var isNetworkAvailable: Bool = false
+    public var onNetworkAvailable: (() -> Void)?
     
     // MARK: - Initialization
     
@@ -37,12 +37,12 @@ final class NetworkMonitorServiceImpl: NetworkMonitorService {
     
     // MARK: - Public methods
     
-    func startMonitoring() {
+    public func startMonitoring() {
         monitor.start(queue: queue)
         LogManager.info("Start monitoring network")
     }
     
-    func stopMonitoring() {
+    public func stopMonitoring() {
         monitor.cancel()
         LogManager.info("Stop monitoring network")
     }

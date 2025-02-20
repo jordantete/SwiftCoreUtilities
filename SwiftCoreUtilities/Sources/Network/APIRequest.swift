@@ -1,6 +1,6 @@
 import Foundation
 
-struct APIRequest {
+public struct APIRequest {
     let url: String
     let method: HTTPMethod
     let headers: [String: String]?

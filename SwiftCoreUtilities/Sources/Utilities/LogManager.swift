@@ -8,7 +8,7 @@ enum LogLevel: String {
     case error = "ERROR"
 }
 
-final class LogManager {
+public final class LogManager {
     // MARK: - Properties
     
     static let shared = LogManager()

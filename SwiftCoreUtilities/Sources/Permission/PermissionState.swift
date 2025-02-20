@@ -1,6 +1,6 @@
 import Foundation
 
-enum PermissionState: String {
+public enum PermissionState: String {
     case notDetermined
     case restricted
     case denied

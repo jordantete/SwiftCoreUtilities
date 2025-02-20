@@ -1,11 +1,11 @@
 import Foundation
 
-protocol NetworkRequestBuilder {
+public protocol NetworkRequestBuilder {
     func buildUrlRequest(for request: APIRequest) throws -> URLRequest
 }
 
-final class NetworkRequestBuilderImpl: NetworkRequestBuilder {
-    func buildUrlRequest(for request: APIRequest) throws -> URLRequest {
+public final class NetworkRequestBuilderImpl: NetworkRequestBuilder {
+    public func buildUrlRequest(for request: APIRequest) throws -> URLRequest {
         LogManager.info("Building request for URL: \(request.url)")
         
         guard let url = URL(string: request.url), url.scheme != nil, url.host != nil else {

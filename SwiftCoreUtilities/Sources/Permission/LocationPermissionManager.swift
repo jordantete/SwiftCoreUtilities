@@ -1,12 +1,12 @@
 import CoreLocation
 
-protocol LocationPermissionManager {
+public protocol LocationPermissionManager {
     func requestLocationPermission(completion: @escaping (PermissionState) -> Void)
     func requestBackgroundLocationPermission(completion: @escaping (PermissionState) -> Void)
     func currentLocationPermissionState(for type: PermissionType) -> PermissionState
 }
 
-final class LocationPermissionManagerImpl: NSObject, LocationPermissionManager, CLLocationManagerDelegate {
+public final class LocationPermissionManagerImpl: NSObject, LocationPermissionManager, CLLocationManagerDelegate {
     // MARK: - Private properties
     
     private let locationManager: CLLocationManager
@@ -25,7 +25,7 @@ final class LocationPermissionManagerImpl: NSObject, LocationPermissionManager, 
     
     // MARK: - LocationPermissionManager
     
-    func requestLocationPermission(completion: @escaping (PermissionState) -> Void) {
+    public func requestLocationPermission(completion: @escaping (PermissionState) -> Void) {
         permissionCompletion = completion
         let status = locationManager.authorizationStatus
         
@@ -42,7 +42,7 @@ final class LocationPermissionManagerImpl: NSObject, LocationPermissionManager, 
         completion(mapCLAuthorizationStatus(status))
     }
     
-    func requestBackgroundLocationPermission(completion: @escaping (PermissionState) -> Void) {
+    public func requestBackgroundLocationPermission(completion: @escaping (PermissionState) -> Void) {
         permissionCompletion = completion
         let status = locationManager.authorizationStatus
         
@@ -59,7 +59,7 @@ final class LocationPermissionManagerImpl: NSObject, LocationPermissionManager, 
         completion(mapCLAuthorizationStatus(status))
     }
     
-    func currentLocationPermissionState(for type: PermissionType) -> PermissionState {
+    public func currentLocationPermissionState(for type: PermissionType) -> PermissionState {
         switch type {
         case .location, .backgroundLocation:
             return mapCLAuthorizationStatus(locationManager.authorizationStatus)
@@ -71,7 +71,7 @@ final class LocationPermissionManagerImpl: NSObject, LocationPermissionManager, 
     
     // MARK: - CLLocationManagerDelegate
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         guard status != previousPermissionStatus else { return }
         previousPermissionStatus = status
         

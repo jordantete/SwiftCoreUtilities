@@ -1,10 +1,10 @@
 import CoreMotion
 
-enum MotionManagerError: Error, Equatable {
+public enum MotionManagerError: Error, Equatable {
     case accelerometerUnavailable
     case unknown(Error)
     
-    static func == (lhs: MotionManagerError, rhs: MotionManagerError) -> Bool {
+    public static func == (lhs: MotionManagerError, rhs: MotionManagerError) -> Bool {
         switch (lhs, rhs) {
         case (.accelerometerUnavailable, .accelerometerUnavailable):
             return true
@@ -17,25 +17,25 @@ enum MotionManagerError: Error, Equatable {
     }
 }
 
-protocol MotionManagerDelegate: AnyObject {
+public protocol MotionManagerDelegate: AnyObject {
     func didUpdateAcceleration(_ acceleration: CMAcceleration)
     func didFailWithError(_ error: MotionManagerError)
 }
 
-protocol MotionManager {
+public protocol MotionManager {
     var delegate: MotionManagerDelegate? { get set }
     func startAccelerometerUpdates()
     func stopAccelerometerUpdates()
     func getLatestAcceleration() -> CMAcceleration
 }
 
-final class MotionManagerImpl: MotionManager {
+public final class MotionManagerImpl: MotionManager {
     // MARK: - Private properties
 
     private let motionManager: CMMotionManager
     private let queue: OperationQueue
     private var latestAcceleration: CMAcceleration?
-    weak var delegate: MotionManagerDelegate?
+    public weak var delegate: MotionManagerDelegate?
     
     // MARK: - Initialization
 
@@ -49,7 +49,7 @@ final class MotionManagerImpl: MotionManager {
     
     // MARK: - Public methods
 
-    func startAccelerometerUpdates() {
+    public func startAccelerometerUpdates() {
         guard motionManager.isAccelerometerAvailable else {
             LogManager.warning("Accelerometer is not available on this device")
             return
@@ -81,13 +81,13 @@ final class MotionManagerImpl: MotionManager {
         }
     }
     
-    func stopAccelerometerUpdates() {
+    public func stopAccelerometerUpdates() {
         motionManager.stopAccelerometerUpdates()
         latestAcceleration = nil
         LogManager.info("Stopped accelerometer updates")
     }
     
-    func getLatestAcceleration() -> CMAcceleration {
+    public func getLatestAcceleration() -> CMAcceleration {
         latestAcceleration ?? CMAcceleration(x: 0.0, y: 0.0, z: 0.0)
     }
 }

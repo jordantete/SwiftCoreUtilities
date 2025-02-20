@@ -1,7 +1,7 @@
 import Security
 import Foundation
 
-enum KeychainError: Error {
+public enum KeychainError: Error {
     case unableToSave(OSStatus)
     case unableToRetrieve(OSStatus)
     case unableToDelete(OSStatus)
@@ -18,24 +18,24 @@ enum KeychainError: Error {
     }
 }
 
-enum KeychainManagerKeys {
+public enum KeychainManagerKeys {
     static let aKey = "aKey"
 }
 
-protocol KeychainManager {
+public protocol KeychainManager {
     func save<T: Codable>(_ value: T, forKey key: String) throws
     func get<T: Codable>(forKey key: String) throws -> T?
     func delete(forKey key: String) throws
 }
 
-final class KeychainManagerImpl: KeychainManager {
+public final class KeychainManagerImpl: KeychainManager {
     // MARK: - Initialization
 
     init() {}
     
     // MARK: - Public methods
     
-    func save<T: Codable>(_ value: T, forKey key: String) throws {
+    public func save<T: Codable>(_ value: T, forKey key: String) throws {
         let data = try JSONEncoder().encode(value)
 
         let query: [String: Any] = [
@@ -54,7 +54,7 @@ final class KeychainManagerImpl: KeychainManager {
         }
     }
 
-    func get<T: Codable>(forKey key: String) throws -> T? {
+    public func get<T: Codable>(forKey key: String) throws -> T? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key,
@@ -70,7 +70,7 @@ final class KeychainManagerImpl: KeychainManager {
         return try JSONDecoder().decode(T.self, from: data)
     }
 
-    func delete(forKey key: String) throws {
+    public func delete(forKey key: String) throws {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key
