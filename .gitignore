@@ -31,10 +31,6 @@ Carthage/
 Carthage/Checkouts
 Carthage/Build
 
-# SwiftLint & SwiftFormat
-.swiftlint.yml
-.swiftformat
-
 # CoreData
 *.xcdatamodeld/.xccurrentversion
 
