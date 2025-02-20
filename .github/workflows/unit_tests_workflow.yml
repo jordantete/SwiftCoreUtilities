@@ -45,4 +45,4 @@ jobs:
             -scheme SwiftCoreUtilities \
             -destination "platform=iOS Simulator,id=CBEE3EE6-43C6-4096-AA39-9FD3719A3BFA" \
             -enableCodeCoverage YES
-            -skipPackagePluginValidation NO | xcpretty
+            -skipPackagePluginValidation YES | xcpretty
