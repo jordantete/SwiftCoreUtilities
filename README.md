@@ -1,10 +1,12 @@
-# 🍎 SwiftCoreUtilities
+# SwiftCoreUtilities
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://github.com/jordantete/SwiftCoreUtilities/actions/workflows/unit_tests_workflow.yml/badge.svg)](https://github.com/jordantete/SwiftCoreUtilities/actions)
 
 A collection of reusable Swift components for your iOS projects.
 
 ## 📖 Table of Contents
 
-- [🍎 SwiftCoreUtilities](#-swiftcoreutilities)
 - [📦 Features](#-features)
 - [📲 Installation](#-installation)
 - [🛠 Usage](#-usage)
