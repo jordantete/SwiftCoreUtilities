@@ -28,6 +28,9 @@ jobs:
         working-directory: SwiftCoreUtilities
         run: swift package resolve
     
+      - name: Install SwiftLint
+        run: brew install swiftlint
+    
       - name: List Available Schemes
         working-directory: SwiftCoreUtilities
         run: xcodebuild -list
@@ -37,6 +40,13 @@ jobs:
     
       - name: Boot iPhone Simulator (iPhone15, iOS 17.0)
         run: xcrun simctl boot CBEE3EE6-43C6-4096-AA39-9FD3719A3BFA
+    
+      - name: Reset Package Cache
+        run: |
+          rm -rf ~/Library/Developer/Xcode/DerivedData
+          rm -rf .build
+          swift package reset
+          swift package resolve
 
       - name: Run Unit Tests on iOS Simulator
         working-directory: SwiftCoreUtilities
