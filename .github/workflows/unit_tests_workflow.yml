@@ -25,7 +25,6 @@ jobs:
         run: swift package resolve
       
       - uses: mxcl/xcodebuild@v3
-        working-directory: SwiftCoreUtilities
         with:
           platform: iOS
           action: test
