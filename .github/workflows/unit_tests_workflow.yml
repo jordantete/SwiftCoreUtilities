@@ -32,13 +32,13 @@ jobs:
         
       - name: Boot iOS Simulator
         run: |
-          UDID=$(xcrun simctl create "Custom iPhone" "iPhone 14" "iOS 16.4")
+          UDID=$(xcrun simctl create "Custom iPhone" "iPhone 15" "iOS 17.0")
           xcrun simctl boot "$UDID"
           echo "Simulator Booted: $UDID"
           
-      - name: Run Unit Tests on iPhone 14 (iOS 16.4)
+      - name: Run Unit Tests on iPhone 15 (iOS 17.0)
         run: |
           xcodebuild test \
             -scheme SwiftCoreUtilities \
-            -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.4' \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.0' \
             -enableCodeCoverage YES | xcpretty
