@@ -42,6 +42,7 @@ jobs:
         run: xcrun simctl boot CBEE3EE6-43C6-4096-AA39-9FD3719A3BFA
     
       - name: Reset Package Cache
+        working-directory: SwiftCoreUtilities
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData
           rm -rf .build
