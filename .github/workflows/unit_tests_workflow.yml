@@ -34,23 +34,22 @@ jobs:
     
       - name: List Available Simulators (Debugging)
         run: xcrun simctl list devices available
-      
+    
       - name: Boot First Available iPhone Simulator
         run: |
-          DEVICE_ID=$(xcrun simctl list devices available | awk '/iPhone/ && /Shutdown/ {print $NF}' | tr -d '()' | head -n 1)
+           DEVICE_ID=$(xcrun simctl list devices available | awk '/iPhone/ && /Shutdown/ {print $NF}' | tr -d '()' | head -n 1)
 
-          if [ -z "$DEVICE_ID" ]; then
-            echo "❌ No available iPhone simulator found!"
-            exit 1
-          fi
+           if [ -z "$DEVICE_ID" ]; then
+             echo "❌ No available iPhone simulator found!"
+             exit 1
+           fi
 
-          xcrun simctl boot "$DEVICE_ID"
-          echo "✅ Booted iPhone Simulator: $DEVICE_ID"
-          
-          
-       - name: Run Unit Tests on iOS Simulator
-         working-directory: SwiftCoreUtilities
-         run: |
+           xcrun simctl boot "$DEVICE_ID"
+           echo "✅ Booted iPhone Simulator: $DEVICE_ID"
+
+      - name: Run Unit Tests on iOS Simulator
+        working-directory: SwiftCoreUtilities
+        run: |
           xcodebuild test \
             -scheme SwiftCoreUtilities \
             -destination "platform=iOS Simulator,id=$DEVICE_ID" \
