@@ -4,7 +4,7 @@ import SwiftUI
 struct SwiftCoreUtilitiesTestAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            FeatureListView()
         }
     }
 }
