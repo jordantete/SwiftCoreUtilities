@@ -8,10 +8,6 @@ on:
     branches:
       - master
 
-permissions:
-  contents: read
-  actions: write
-
 jobs:
   test:
     name: Run Unit Tests
@@ -56,4 +52,4 @@ jobs:
             -scheme SwiftCoreUtilities \
             -destination "platform=iOS Simulator,id=CBEE3EE6-43C6-4096-AA39-9FD3719A3BFA" \
             -skipPackagePluginValidation \
-            -enableCodeCoverage YES | xcpretty
+            -enableCodeCoverage YES
