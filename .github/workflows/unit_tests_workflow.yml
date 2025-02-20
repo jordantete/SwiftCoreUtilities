@@ -24,11 +24,10 @@ jobs:
         working-directory: SwiftCoreUtilities
         run: swift package resolve
       
-      - name: Checkout Repository
+      - uses: mxcl/xcodebuild@v3
         working-directory: SwiftCoreUtilities
-        uses: sersoft-gmbh/xcodebuild-action@v3
         with:
-          spm-package: './'
-          scheme: SwiftCoreUtilities
-          destination: platform=iOS
+          platform: iOS
           action: test
+          code-coverage: true
+          warnings-as-errors: false
