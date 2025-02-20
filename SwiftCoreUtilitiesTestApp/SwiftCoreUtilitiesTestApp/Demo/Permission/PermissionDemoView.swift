@@ -45,10 +45,9 @@ struct PermissionDemoView: View {
 private extension PermissionState {
     var color: Color {
         switch self {
-        case .granted: return .green
-        case .denied: return .red
-        case .restricted, .prompt: return .yellow
-        case .unknown: return .gray
+        case .granted, .authorizedWhenInUse, .authorizedAlways:     return .green
+        case .denied, .notDetermined:                               return .red
+        case .restricted, .provisional, .ephemeral:                 return .yellow
         }
     }
 }

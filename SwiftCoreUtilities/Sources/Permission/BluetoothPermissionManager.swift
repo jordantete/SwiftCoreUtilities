@@ -13,7 +13,7 @@ public final class BluetoothPermissionManagerImpl: NSObject, BluetoothPermission
     
     // MARK: - Initialization
     
-    override init() {
+    public override init() {
         self.centralManager = CBCentralManager(delegate: nil, queue: nil)
         super.init()
         self.centralManager.delegate = self

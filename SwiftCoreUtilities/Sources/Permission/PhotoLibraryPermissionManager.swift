@@ -6,6 +6,10 @@ public protocol PhotoLibraryPermissionManager {
 }
 
 public final class PhotoLibraryPermissionManagerImpl: PhotoLibraryPermissionManager {
+    // MARK: - Initialization
+
+    public init() {}
+
     // MARK: - PhotoLibraryPermissionManager
     
     public func requestPhotoLibraryPermission(completion: @escaping (PermissionState) -> Void) {

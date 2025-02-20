@@ -6,6 +6,12 @@ public protocol CameraPermissionManager {
 }
 
 public final class CameraPermissionManagerImpl: CameraPermissionManager {
+    // MARK: - Initialization
+
+    public init() {}
+    
+    // MARK: - CameraPermissionManager
+    
     public func requestCameraPermission(completion: @escaping (PermissionState) -> Void) {
         AVCaptureDevice.requestAccess(for: .video) { granted in
             completion(granted ? .granted : .denied)

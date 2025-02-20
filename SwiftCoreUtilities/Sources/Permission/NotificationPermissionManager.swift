@@ -15,7 +15,7 @@ public final class NotificationPermissionManagerImpl: NotificationPermissionMana
     
     // MARK: - Initialization
     
-    init(userNotificationCenter: UNUserNotificationCenter = .current()) {
+    public init(userNotificationCenter: UNUserNotificationCenter = .current()) {
         self.userNotificationCenter = userNotificationCenter
         self.previousPermissionStatus = self.currentNotificationPermission().rawValue == "granted" ? .authorized : .denied
     }

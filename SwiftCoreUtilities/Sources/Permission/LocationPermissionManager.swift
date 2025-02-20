@@ -15,7 +15,7 @@ public final class LocationPermissionManagerImpl: NSObject, LocationPermissionMa
     
     // MARK: - Initialization
     
-    init(locationManager: CLLocationManager = CLLocationManager()) {
+    public init(locationManager: CLLocationManager = CLLocationManager()) {
         self.locationManager = locationManager
         self.previousPermissionStatus = locationManager.authorizationStatus
         

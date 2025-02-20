@@ -18,7 +18,7 @@ public final class PermissionServiceImpl: PermissionService {
 
     // MARK: - Initialization
     
-    init(
+    public init(
         locationPermissionManager: LocationPermissionManager,
         notificationPermissionManager: NotificationPermissionManager,
         cameraPermissionManager: CameraPermissionManager,
