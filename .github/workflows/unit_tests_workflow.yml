@@ -23,15 +23,10 @@ jobs:
       - name: Install Dependencies
         working-directory: SwiftCoreUtilities
         run: swift package resolve
-    
-      - name: Generate Xcode Project for Swift Package
-        working-directory: SwiftCoreUtilities
-        run: swift package generate-xcodeproj
         
       - name: Run Tests on iPhone 15 Simulator (iOS 17.0)
         working-directory: SwiftCoreUtilities
         run: |
-            xcodebuild test \
-                -scheme 'SwiftCoreUtilities' \
-                -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.0' \
-                -enableCodeCoverage YES | xcpretty
+          swift test \
+              --destination 'platform=iOS Simulator,name=iPhone 15,OS=17.0' \
+              --enable-code-coverage
