@@ -1,8 +1,20 @@
 import CoreMotion
 
-enum MotionManagerError: Error {
+enum MotionManagerError: Error, Equatable {
     case accelerometerUnavailable
     case unknown(Error)
+    
+    static func == (lhs: MotionManagerError, rhs: MotionManagerError) -> Bool {
+        switch (lhs, rhs) {
+        case (.accelerometerUnavailable, .accelerometerUnavailable):
+            return true
+        case let (.unknown(lhsError), .unknown(rhsError)):
+            return (lhsError as NSError).domain == (rhsError as NSError).domain &&
+                   (lhsError as NSError).code == (rhsError as NSError).code
+        default:
+            return false
+        }
+    }
 }
 
 protocol MotionManagerDelegate: AnyObject {
@@ -27,9 +39,9 @@ final class MotionManagerImpl: MotionManager {
     
     // MARK: - Initialization
 
-    init(accelerometerUpdateInterval: TimeInterval = 0.5) {
-        motionManager = CMMotionManager()
-        motionManager.accelerometerUpdateInterval = accelerometerUpdateInterval
+    init(accelerometerUpdateInterval: TimeInterval = 0.5, motionManager: CMMotionManager = CMMotionManager()) {
+        self.motionManager = motionManager
+        self.motionManager.accelerometerUpdateInterval = accelerometerUpdateInterval
         queue = OperationQueue()
         queue.name = "com.motion.queue"
         queue.maxConcurrentOperationCount = 1

@@ -1,6 +1,6 @@
 import Foundation
 
-enum NetworkError: Error {
+enum NetworkError: Error, Equatable {
     case invalidURL
     case serverError(Int)
     case noResponse
@@ -38,8 +38,15 @@ enum NetworkError: Error {
     }
     
     static func from(_ error: Error) -> NetworkError {
+        if let networkError = error as? NetworkError {
+            return networkError
+        }
+        
+        if error is DecodingError {
+            return .decodingFailed
+        }
+        
         let nsError = error as NSError
-
         if nsError.domain == NSURLErrorDomain {
             switch nsError.code {
             case NSURLErrorNotConnectedToInternet:
@@ -55,5 +62,26 @@ enum NetworkError: Error {
             }
         }
         return .unknown(error)
+    }
+    
+    static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
+        switch (lhs, rhs) {
+        case (.invalidURL, .invalidURL),
+            (.noResponse, .noResponse),
+            (.encodingFailed, .encodingFailed),
+            (.decodingFailed, .decodingFailed),
+            (.notConnected, .notConnected),
+            (.timedOut, .timedOut),
+            (.networkConnectionLost, .networkConnectionLost),
+            (.invalidRequest, .invalidRequest):
+            return true
+        case (.serverError(let lhsCode), .serverError(let rhsCode)):
+            return lhsCode == rhsCode
+        case (.unknown(let lhsError), .unknown(let rhsError)):
+            return (lhsError as NSError).domain == (rhsError as NSError).domain &&
+            (lhsError as NSError).code == (rhsError as NSError).code
+        default:
+            return false
+        }
     }
 }

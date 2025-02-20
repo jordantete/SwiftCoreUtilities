@@ -8,7 +8,7 @@ final class NetworkRequestBuilderImpl: NetworkRequestBuilder {
     func buildUrlRequest(for request: APIRequest) throws -> URLRequest {
         LogManager.info("Building request for URL: \(request.url)")
         
-        guard let url = URL(string: request.url) else {
+        guard let url = URL(string: request.url), url.scheme != nil, url.host != nil else {
             LogManager.error("Invalid URL: \(request.url)")
             throw NetworkError.invalidURL
         }

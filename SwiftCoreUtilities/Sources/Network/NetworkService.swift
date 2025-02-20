@@ -8,14 +8,14 @@ protocol NetworkService {
 final class NetworkServiceImpl: NetworkService {
     // MARK: - Private properties
     
-    private let session: URLSession
+    private let session: URLSessionProtocol
     private let requestBuilder: NetworkRequestBuilder
     private let jsonDecoder: JSONDecoder
     
     // MARK: - Initialization
     
     init(
-        session: URLSession = URLSession(configuration: .default),
+        session: URLSessionProtocol = URLSession.shared,
         requestBuilder: NetworkRequestBuilder = NetworkRequestBuilderImpl(),
         jsonDecoder: JSONDecoder = JSONDecoder()
     ) {

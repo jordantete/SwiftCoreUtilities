@@ -10,7 +10,7 @@ protocol NetworkMonitorService {
 final class NetworkMonitorServiceImpl: NetworkMonitorService {
     // MARK: - Private properties
     
-    private let monitor = NWPathMonitor()
+    private let monitor: NWPathMonitor
     private let queue = DispatchQueue(label: "com.lapile.networkMonitoringService", qos: .background)
     
     // MARK: - Public properties
@@ -20,8 +20,9 @@ final class NetworkMonitorServiceImpl: NetworkMonitorService {
     
     // MARK: - Initialization
     
-    init() {
-        monitor.pathUpdateHandler = { [weak self] path in
+    init(monitor: NWPathMonitor = NWPathMonitor()) {
+        self.monitor = monitor
+        self.monitor.pathUpdateHandler = { [weak self] path in
             let wasOffline = !(self?.isNetworkAvailable ?? false)
             self?.isNetworkAvailable = path.status == .satisfied
             
