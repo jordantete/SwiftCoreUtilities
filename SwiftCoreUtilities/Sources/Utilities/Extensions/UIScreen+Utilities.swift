@@ -12,7 +12,7 @@ public extension UIScreen {
     
     /// Detects if the device has a smaller vertical height (<800px)
     static var isSmallVerticalHeight: Bool {
-        let height = UIDevice.isLandscape ? main.bounds.width : main.bounds.height
+        let height = UIDevice.isLandscapeMode ? main.bounds.width : main.bounds.height
         return height < 800
     }
 }

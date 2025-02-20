@@ -21,9 +21,7 @@ let package = Package(
             swiftSettings: [
                 .define("SWIFTDATA_AVAILABLE", .when(platforms: [.iOS], configuration: .release))
             ],
-            plugins: [
-                 .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
-             ]
+            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")]
         ),
         .testTarget(
             name: "SwiftCoreUtilitiesTests",

@@ -46,4 +46,3 @@ final class NetworkMonitorServiceImpl: NetworkMonitorService {
         LogManager.info("Stop monitoring network")
     }
 }
-

@@ -63,7 +63,7 @@ final class LocationPermissionManagerImpl: NSObject, LocationPermissionManager, 
         switch type {
         case .location, .backgroundLocation:
             return mapCLAuthorizationStatus(locationManager.authorizationStatus)
-        @unknown default:
+        case .notification, .camera, .photoLibrary, .bluetooth:
             LogManager.error("Unsupported PermissionType: \(type) in this context")
             return .denied
         }

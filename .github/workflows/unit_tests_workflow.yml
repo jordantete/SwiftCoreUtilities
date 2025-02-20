@@ -1,4 +1,4 @@
-name: unit_tests_workflow
+name: Unit Tests Workflow
 
 on:
   push:
@@ -7,3 +7,34 @@ on:
   pull_request:
     branches:
       - master
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Select Xcode Version
+        run: sudo xcode-select -p
+
+      - name: Install Dependencies
+        run: swift package resolve
+    
+      - name: List Available Simulators (Debugging)
+        run: xcrun simctl list devices available
+          
+     - name: Boot iOS Simulator
+        run: |
+          UDID=$(xcrun simctl create "Custom iPhone" "iPhone 14" "iOS 16.4")
+          xcrun simctl boot "$UDID"
+          echo "Simulator Booted: $UDID"
+
+      - name: Run Unit Tests on iPhone 14 (iOS 16.4)
+        run: |
+          xcodebuild test \
+            -scheme SwiftCoreUtilities \
+            -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.4' \
+            -enableCodeCoverage YES | xcpretty

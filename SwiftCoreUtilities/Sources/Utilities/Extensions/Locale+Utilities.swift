@@ -14,7 +14,7 @@ public extension Locale {
     static var userCurrencySymbol: String { current.currencySymbol ?? "Unknown" }
     
     /// The measurement system used (e.g., metric, US)
-    static var measurementSystem: Locale.MeasurementSystem { Locale.measurementSystem }
+    static var deviceMeasurementSystem: Locale.MeasurementSystem { current.measurementSystem }
     
     /// The user's time zone identifier (e.g., "America/New_York")
     static var userTimeZone: String { TimeZone.current.identifier }

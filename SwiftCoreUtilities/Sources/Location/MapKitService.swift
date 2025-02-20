@@ -25,7 +25,8 @@ final class MapKitServiceImpl: NSObject, MapKitService {
             if let coordinate = placemarks?.first?.location?.coordinate {
                 completion(.success(coordinate))
             } else {
-                completion(.failure(NSError(domain: "MapKitService", code: 404, userInfo: [NSLocalizedDescriptionKey: "No location found"])))
+                let error = NSError(domain: "MapKitService", code: 404, userInfo: [NSLocalizedDescriptionKey: "No location found"])
+                completion(.failure(error))
             }
         }
     }

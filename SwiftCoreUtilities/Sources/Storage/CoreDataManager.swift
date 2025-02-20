@@ -75,7 +75,7 @@ final class CoreDataManagerImpl: CoreDataManager {
                 return results
             } catch {
                 let predicateDescription = predicate?.predicateFormat ?? "None"
-                let errorMessage = "Core Data fetch failed for \(entityName). Predicate: \(predicateDescription). Error: \(error.localizedDescription)"
+                let errorMessage = "CoreData fetch failed for \(entityName). Predicate: \(predicateDescription). Error: \(error.localizedDescription)"
                 LogManager.error(errorMessage)
                 throw error
             }

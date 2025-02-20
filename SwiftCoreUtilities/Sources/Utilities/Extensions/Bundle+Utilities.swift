@@ -11,7 +11,7 @@ public extension Bundle {
     static var appName: String { main.infoDictionary?["CFBundleName"] as? String ?? "Unknown" }
     
     /// The app's bundle identifier (e.g., "com.organization.MyApp")
-    static var bundleIdentifier: String { Bundle.bundleIdentifier ?? "Unknown" }
+    static var appBundleIdentifier: String { main.bundleIdentifier ?? "No Bundle ID" }
     
     /// The minimum required iOS version
     static var minimumOSVersion: String { main.infoDictionary?["MinimumOSVersion"] as? String ?? "Unknown" }

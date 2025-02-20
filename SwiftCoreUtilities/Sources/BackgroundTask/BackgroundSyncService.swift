@@ -10,14 +10,14 @@ public protocol BackgroundSyncService {
 
 public final class BackgroundSyncServiceImpl: BackgroundSyncService {
     // MARK: - Properties
-    
+
     private let scheduler: BackgroundTaskScheduler
     private let taskIdentifier = "com.task.identifier"
     public var syncInterval: TimeInterval = 1260 // Default: 21 minutes
     private var backgroundTask: (() -> Void)?
-    
+
     // MARK: - Initialization
-    
+
     public init(scheduler: BackgroundTaskScheduler = BackgroundTaskSchedulerImpl()) {
         self.scheduler = scheduler
     }
@@ -72,4 +72,3 @@ public final class BackgroundSyncServiceImpl: BackgroundSyncService {
         }
     }
 }
-

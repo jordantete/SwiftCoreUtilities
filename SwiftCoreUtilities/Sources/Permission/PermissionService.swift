@@ -16,7 +16,6 @@ final class PermissionServiceImpl: PermissionService {
     private let bluetoothPermissionManager: BluetoothPermissionManager
     private var observers: [PermissionType: () -> Void] = [:]
 
-    
     // MARK: - Initialization
     
     init(
@@ -81,19 +80,19 @@ final class PermissionServiceImpl: PermissionService {
             .notification: { [weak self] in
                 self?.notificationPermissionManager.observeNotificationPermissionChanges()
             },
-            .location: { [weak self] in
+            .location: {
                 LogManager.info("Location permission observer not implemented yet.")
             },
-            .backgroundLocation: { [weak self] in
+            .backgroundLocation: {
                 LogManager.info("Background Location permission observer not implemented yet.")
             },
-            .camera: { [weak self] in
+            .camera: {
                 LogManager.info("Camera permission observer not implemented yet.")
             },
-            .photoLibrary: { [weak self] in
+            .photoLibrary: {
                 LogManager.info("Photo Library permission observer not implemented yet.")
             },
-            .bluetooth: { [weak self] in
+            .bluetooth: {
                 LogManager.info("Bluetooth permission observer not implemented yet.")
             }
         ]

@@ -23,7 +23,7 @@ final class NotificationPermissionManagerImpl: NotificationPermissionManager {
     // MARK: - NotificationPermissionManager
     
     func requestNotificationPermission(completion: @escaping (PermissionState) -> Void) {
-        userNotificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+        userNotificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in
             self.userNotificationCenter.getNotificationSettings { settings in
                 let mappedState = self.mapUNAuthorizationStatus(settings.authorizationStatus)
                 completion(mappedState)
