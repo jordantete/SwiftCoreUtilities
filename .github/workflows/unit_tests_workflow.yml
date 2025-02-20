@@ -55,5 +55,5 @@ jobs:
           xcodebuild test \
             -scheme SwiftCoreUtilities \
             -destination "platform=iOS Simulator,id=CBEE3EE6-43C6-4096-AA39-9FD3719A3BFA" \
-            -skipPackagePluginValidation YES \
+            -skipPackagePluginValidation \
             -enableCodeCoverage YES | xcpretty
