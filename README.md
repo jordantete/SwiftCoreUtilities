@@ -19,6 +19,7 @@ A collection of reusable Swift components for your iOS projects.
   - [📍 User Location Tracking](#-user-location-tracking)
   - [📷 Permissions Management](#-permissions-management)
   - [📡 Background Task Management](#-background-task-management)
+  - [🧭 Coordinator](#-coordinator)
   - [🎨 UI Utilities (SwiftUI Helpers & ViewModifiers)](#-ui-utilities-swiftui-helpers--viewmodifiers)
 - [🔥 Why Choose SwiftCoreUtilities?](#-why-choose-swiftcoreutilities)
 - [🤝 Contributing](#-contributing)
@@ -249,6 +250,69 @@ backgroundSyncService.startSyncing {
 }
 ```
 
+### 🧭 Coordinator (SwiftUI Navigation)
+
+SwiftCoreUtilities includes a production-ready, type-safe **Coordinator pattern** for SwiftUI. It decouples your navigation logic and supports advanced use cases like `.push`, `.sheet`, `.fullScreenCover`, and even deep linking.
+
+#### 📦 Define Your Routes
+
+```swift
+import SwiftUI
+import SwiftCoreUtilities
+
+enum AppRoute: Route {
+    case home
+    case detail(message: String)
+
+    var id: String {
+        switch self {
+        case .home: return "home"
+        case .detail: return "detail"
+        }
+    }
+
+    var navigationStyle: NavigationStyle {
+        switch self {
+        case .home: return .push
+        case .detail: return .sheet
+        }
+    }
+
+    @ViewBuilder
+    func view(coordinator: any Coordinator<Self>) -> some View {
+        switch self {
+        case .home:
+            HomeView()
+        case .detail(let message):
+            DetailView(message: message)
+        }
+    }
+}
+```
+
+#### 🎯 Use the Coordinator in Your App
+
+```swift
+struct ContentView: View {
+    var body: some View {
+        CoordinatorView(
+            coordinator: ObservableCoordinator<AppRoute>(),
+            initialRoute: .home
+        )
+    }
+}
+```
+
+#### 💡 In Your View, Navigate Like This:
+
+
+```swift
+@EnvironmentObject var coordinator: ObservableCoordinator<AppRoute>
+
+Button("Show Detail") {
+    coordinator.navigate(to: .detail(message: "Hello!"))
+}
+```
 
 ### 🎨 **UI Utilities (SwiftUI Helpers & ViewModifiers)**
 
@@ -270,4 +334,4 @@ We welcome contributions! Feel free to fork, submit a pull request, or open an i
 
 ## ⚖️ License
 
-This project is licensed under the MIT License – see the LICENSE file for details.
+This project is licensed under the MIT License – see the [LICENSE](./LICENSE.txt) file for details.

@@ -4,16 +4,38 @@ import SwiftCoreUtilities
 struct Feature: Identifiable {
     let id = UUID()
     let name: String
-    let destination: AnyView
+    let destination: () -> AnyView
 }
 
 struct FeatureListView: View {
-    private let features: [Feature] = [
-        Feature(name: "Keyboard Dismiss Helper", destination: AnyView(KeyboardDismissDemoView())),
-        Feature(name: "Shake Animation", destination: AnyView(ShakeEffectDemoView())),
-        Feature(name: "Pulsating Effect", destination: AnyView(PulsatingEffectDemoView())),
-        Feature(name: "Permission Management", destination: AnyView(PermissionDemoView()))
-    ]
+    @StateObject private var coordinator = NavigationCoordinator<DemoRoute> { route in
+        route.navigationStyle
+    }
+    
+    private var features: [Feature] {
+        [
+            Feature(
+                name: "Keyboard Dismiss Helper",
+                destination: { AnyView(KeyboardDismissDemoView()) }
+            ),
+            Feature(
+                name: "Shake Animation",
+                destination: { AnyView(ShakeEffectDemoView()) }
+            ),
+            Feature(
+                name: "Pulsating Effect",
+                destination: { AnyView(PulsatingEffectDemoView()) }
+            ),
+            Feature(
+                name: "Permission Management",
+                destination: { AnyView(PermissionDemoView()) }
+            ),
+            Feature(
+                name: "Navigation (Coordinator)",
+                destination: { AnyView(DemoCoordinatorContainerView()) }
+            )
+        ]
+    }
 
     var body: some View {
         NavigationView {
