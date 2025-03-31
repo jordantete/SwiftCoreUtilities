@@ -35,7 +35,7 @@ jobs:
         run: xcrun simctl list devices available
     
       - name: Boot iPhone Simulator (iPhone15, iOS 17.0)
-        run: xcrun simctl boot CBEE3EE6-43C6-4096-AA39-9FD3719A3BFA
+        run: xcrun simctl boot 84D006CB-EE25-4EB8-8D26-52E1E5FDBA0C
     
       - name: Reset Package Cache
         working-directory: SwiftCoreUtilities
@@ -50,6 +50,6 @@ jobs:
         run: |
           xcodebuild test \
             -scheme SwiftCoreUtilities \
-            -destination "platform=iOS Simulator,id=CBEE3EE6-43C6-4096-AA39-9FD3719A3BFA" \
+            -destination "platform=iOS Simulator,id=84D006CB-EE25-4EB8-8D26-52E1E5FDBA0C" \
             -skipPackagePluginValidation \
             -enableCodeCoverage YES
