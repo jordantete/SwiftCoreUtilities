@@ -9,10 +9,6 @@ struct FirstScreenView: View {
             Text("📱 First Screen")
                 .font(.largeTitle)
 
-            Button("Push to First Again") {
-                coordinator.navigate(to: .firstScreen)
-            }
-
             Button("Present Second as Sheet") {
                 coordinator.navigate(to: .secondScreen(message: "Hello from First!"))
             }

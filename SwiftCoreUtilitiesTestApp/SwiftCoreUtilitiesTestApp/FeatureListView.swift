@@ -32,7 +32,12 @@ struct FeatureListView: View {
             ),
             Feature(
                 name: "Navigation (Coordinator)",
-                destination: { AnyView(DemoCoordinatorContainerView()) }
+                destination: {
+                    AnyView(
+                        DemoCoordinatorContainerView()
+                            .environmentObject(coordinator)
+                    )
+                }
             )
         ]
     }

@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftCoreUtilities
 
 struct DemoCoordinatorContainerView: View {
-    @StateObject private var coordinator = NavigationCoordinator<DemoRoute>()
+    @EnvironmentObject var coordinator: NavigationCoordinator<DemoRoute>
 
     var body: some View {
         CoordinatorView(
