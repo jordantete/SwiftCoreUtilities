@@ -19,7 +19,7 @@ A collection of reusable Swift components for your iOS projects.
   - [📍 User Location Tracking](#-user-location-tracking)
   - [📷 Permissions Management](#-permissions-management)
   - [📡 Background Task Management](#-background-task-management)
-  - [🧭 Coordinator](#-coordinator)
+  - [🧭 Coordinator (SwiftUI Navigation)](#-coordinator-swiftui-navigation)  
   - [🎨 UI Utilities (SwiftUI Helpers & ViewModifiers)](#-ui-utilities-swiftui-helpers--viewmodifiers)
 - [🔥 Why Choose SwiftCoreUtilities?](#-why-choose-swiftcoreutilities)
 - [🤝 Contributing](#-contributing)
@@ -35,6 +35,7 @@ A collection of reusable Swift components for your iOS projects.
 - 📍 **User Location Tracking** – Efficient **CoreLocation** integration with heading & accelerometer support  
 - 🎛 **Permissions Management** – Centralized access for **Location**, **Notifications**, **Camera**, **Photos**, and **Bluetooth**  
 - 📡 **Background Task Management** – Periodic background execution with iOS **BGTaskScheduler**  
+- 🧭 **Coordinator** – Cleanly decouples navigation logic from views with support for push, sheet, full screen, and deep linking in SwiftUI.
 - 🎨 **UI Utilities** – SwiftUI modifiers, helpers for **navigation**, **keyboard**, **animations**, etc..
 
 
